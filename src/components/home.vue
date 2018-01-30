@@ -2,172 +2,315 @@
     <!-- 社区主页 -->
   <div class="home">
       <!-- 头部Top -->
-      <div class="header">
+      <div class="header" >
         <!-- 选择社区 -->
-          <span class="mui-icon mui-icon-location location" @click="changeLocation" >{{titleText}}</span>
+          <span class="mui-icon mui-icon-location location" >
+            <span :class="mask==true?'aaa':''" @click="changeLocation">{{titleText}}</span>
+          </span>
         <!-- 信息盒子 -->
           <span class="mui-icon mui-icon-chat massageBox fr" @click="openMassageBox"></span>
-
-          <!-- test  头部首页隐藏其它页显示测试-->
-          <!-- v-show="isShowTopBar" -->
-          <!-- <mt-header title="社区时讯" class="headerBox" >
-              <mt-button  slot="left" icon="back"  @click="goBack" class="backStyle"></mt-button>
-              <mt-button icon="more" slot="right"></mt-button>
-          </mt-header> -->
       </div>
-      <!-- 中间路由动态View -->
-      <div class="routerView">
-            <router-view></router-view>
-      </div>
-      <!-- 底部TabBar -->
-      <div class="tabBar"  >
-          <!-- <router-link to="/one">tabbar</router-link> -->
-            <!-- test -->
-          <!-- v-show="isShowTabbar" -->
-          <mt-tabbar fixed >
-             <mt-tab-item id="">
-                 <span slot="icon" class="mui-icon mui-icon-home"></span>
-                 <p>首页</p>
-             </mt-tab-item>
-            <mt-tab-item id="">
-              <!-- test -->
-              <!-- <router-link to="/testHidden"> -->
-                 <span slot="icon" class="mui-icon mui-icon-contact"></span>
-                 <p>个人中心</p>
-                 <!-- </router-link> -->
-             </mt-tab-item>
-        </mt-tabbar>
-      </div>
-      <div :class="isShow==true?'mask':''" @click="isHide">
-        <div :class="isShow==false?'show':''" style=" width:50%;height:50%;border-radius:6px solid red;margin:20px auto;z-index:999;background:white;">
-          <!-- <h4>标题</h4> -->
-          <ul >
-            <li v-for="(item,index) in liObj" @click="textClick(item)" style="list-style: none;" >{{item}}</li>
-          </ul>
+      <!-- 遮罩层弹窗内容 -->
+      <div :class="isShowMaskorContent==true?'mask':''" @click="isHide">
+        <div :class="isShowMaskorContent==false?'hiddenContent':''">
+          <!-- 选项内容 -->
+          <div class="maskContent">
+              <h4 class="h4Title">请选择所在社区</h4>
+              <ul>
+                <li v-for="(item,index) in chooseMsgs" @click="chooseItem(item.MsgTitle)">
+                    <h4>{{item.MsgTitle}}</h4>
+                    <p>{{item.Msgcontent}}</p>
+                </li>
+              </ul>
+          </div>
         </div>
       </div>
+      <!-- 轮播图 -->
+      <div class="swipeContent">
+        <mt-swipe :auto="2000">
+           <mt-swipe-item v-for="(item,index) in swipeData" :key="index">
+             <img :src="item"/>
+      	   </mt-swipe-item>
+        </mt-swipe>
+      </div>
+      <!-- 九宫格 -->
+      <div class="mui-content gridContent">
+        <ul class="mui-table-view mui-grid-view mui-grid-9">
+            <li v-for="(item,index) in gridData"  :key="index" class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+              <router-link :to=item.toPath>
+                <img :src='item.img' alt="" >
+                <div>{{item.title}}</div>
+              </router-link>
+            </li>
+        </ul>
+		        <!-- <ul class="mui-table-view mui-grid-view mui-grid-9">
+		            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+                    <router-link to="/fuwubao">
+		                <img src="../assets/images/icon_shequfuwu.png" alt="">
+		                <div class="fuwubao">服务宝</div>
+                    </router-link>
+                </li>
+		            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+                    <router-link to="/linlibang">
+		                <img src="../assets/images/icon_zhiyuanfuwu.png" alt="">
+		                <div class="fuwubao">邻里帮</div>
+                    </router-link>
+                </li>
+		            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+                    <router-link to="/gongyiba">
+		                <img src="../assets/images/icon_gongyifuwu.png" alt="">
+		                <div class="fuwubao">公益吧</div>
+                    </router-link>
+                </li>
+		            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+                    <router-link to="/baishitong">
+		                <img src="../assets/images/icon_bianminfuwu.png" alt="">
+		                <div class="fuwubao">百事通</div>
+                    </router-link>
+                </li>
+		            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+                    <router-link to="/jigouquan">
+		                <img src="../assets/images/icon_shehuizuzhi.png" alt="">
+		                <div class="fuwubao">机构圈</div>
+                    </router-link>
+                </li>
+		            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+                    <router-link to="/gjtIndex">
+		                <img src="../assets/images/icon_shequkuaibao.png" alt="">
+		                <div class="fuwubao">观景台</div>
+                    </router-link>
+                </li>
+		        </ul>  -->
+		</div>
+    <!-- 社区资讯信息 -->
+    <div class="newsContent" style="height:260px;">
+       <!-- 党建新闻 -->
+        <div class="djxw" >
+          <div class="title" >
+            <span class="titleLeft"><i class="treeBar">|</i>党建新闻</span>
+            <span class="fr allRight">查看全部</span>
+          </div>
+          <div class="content" style="margin-top:20px;">
+              <h4 >区人大常委会陆卫平副主任到大梅沙社区人大联络站走访调研</h4>
+              <p>2018-1-5 19:20:16</p>
+              <div>
+                <div class="fl"><img style="width:80px;height:80px;" src="http://120.77.214.0:10000/uploads/attach/41cfd5dd-7e8e-44dc-b584-45eb78174ed1.png" alt=""></div>
+                <span class="">7月21日上午，区人大常委会陆卫平副主任到大梅沙社区人大联络站走访调研</span>
+              </div>
+          </div> 
+        </div>
+    </div>
+
+      <!-- 底部TabBar -->
+    <mt-tabbar fixed v-show="isShowTabbar">
+      <mt-tab-item >
+        <router-link to="/home">
+          <img src="../assets/images/home.png">
+          <p>首页</p>
+        </router-link>
+      </mt-tab-item>
+      <mt-tab-item>
+        <router-link to="/login">
+          <img src="../assets/images/personal.png">
+          <p>个人中心</p>
+        </router-link>
+      </mt-tab-item>
+    </mt-tabbar>
   </div>
 </template>
 
 <script>
+// 轮播图
+import img1 from "../assets/images/banner_2.jpg";
+import img2 from "../assets/images/banner_3.jpg";
+import img3 from "../assets/images/lxyz_banner.jpg";
+import img4 from "../assets/images/img4.png";
+import img5 from "../assets/images/img5.png";
+import img6 from "../assets/images/img6.png";
+// 九宫格
+import gridImg1 from "../assets/images/icon_shequfuwu.png";
+import gridImg2 from "../assets/images/icon_zhiyuanfuwu.png";
+import gridImg3 from "../assets/images/icon_gongyifuwu.png";
+import gridImg4 from "../assets/images/icon_bianminfuwu.png";
+import gridImg5 from "../assets/images/icon_shehuizuzhi.png";
+import gridImg6 from "../assets/images/icon_shequkuaibao.png";
 export default {
   name: "home",
   data() {
     return {
-      // test
-      // isShowTopBar:true,
-      // isShowTabbar:false,
-      msg: "home",
-      isShow: false,
-      liObj:{
-        1:'1111',
-        2:'2222',
-        3:'3333',
-        4:'4444',
-        5:'5555'
-      },
-      titleText:"大梅沙海岸"
-      
+      titleText:'大梅沙社区',
+      isShowMaskorContent:false,
+      isShowTopBar: false,
+      isShowTabbar: true,
+      mask: "true",
+      chooseMsgs: [
+        {MsgTitle: "小梅沙社区", Msgcontent: "小梅沙村、旅游中心住宅小区" },
+        {MsgTitle: "大梅沙社区",Msgcontent: "大梅沙村、爱琴湾、八十步海域、天涛轩、湖心导"},
+        {MsgTitle: "滨海社区", Msgcontent: "上坪、成坑" },
+        {MsgTitle: "东海岸社区",Msgcontent: "万科东海岸、云顶天海、海语东园、东部华侨城物业"}
+      ],
+      swipeData:{img1:img1,img2:img2,img3:img3,img4:img4,img5:img5,img6:img6},
+      gridData: [
+        { img: gridImg1, title: "服务宝", toPath: "/serviceHelperIndex" },
+        { img: gridImg2, title: "邻里帮", toPath: "/neighborHelpIndex" },
+        { img: gridImg3, title: "公益吧", toPath: "/publicBenefitIndex" },
+        { img: gridImg4, title: "百事通", toPath: "/convenienceSeviceIndex" },
+        { img: gridImg5, title: "机构圈", toPath: "/organizationIndex" },
+        { img: gridImg6, title: "观景台", toPath: "/gjtIndex" }
+      ]
     };
   },
-  // test
-  //   watch:{
-  //   $route: function(newVal,oldVal){
-  //     this.isShowOrHidden(newVal.path)
-  //   }
-  // },
-  // created: function(){
-  //   this.isShowOrHidden(this.$route.path)
-  // },
-  methods:{
-    changeLocation:function(){
-      this.isShow = true
-      // alert("===========更换社区============")
-    },
-    openMassageBox:function(){
-      alert("打开盒子信息")
-    },
-    isHide(){
-      this.isShow = false
-    },
-    textClick(index){
-      this.titleText = index
-    },
-    // test
-        // 头部返回按钮(首页隐藏其它页显示)
-  // goBack: function() {
-  //     this.$router.go(-1);
-  //   },
-  // isShowOrHidden :function(path){
-  //   if(path == '/home'){
-  //     this.isShowTopBar =true,
-  //     this.isShowTabbar =true
-  //   }else{
-  //     this.isShowTopBar =true,
-  //     this.isShowTabbar =false
-  //   }
-
-  // },
+  watch: {
+    $route: function(newVal, oldVal) {
+      this.isShowOrHidden(newVal.path);
+    }
   },
+  created: function() {
+    this.isShowOrHidden(this.$route.path);
+  },
+  methods: {
+    changeLocation: function() {
+      this.isShowMaskorContent =true;
+    },
+    chooseItem: function(item){
+      this.titleText = item;
+    },
+    isHide:function(){
+      this.isShowMaskorContent =false;
+    },
+    openMassageBox: function() {
+      alert("打开盒子信息");
+    },
+    // 头部返回按钮(首页隐藏其它页显示)
+    goBack: function() {
+      this.$router.go(-1);
+    },
+    isShowOrHidden: function(path) {
+      if (path == "/home1") {
+        (this.isShowTopBar = false), (this.isShowTabbar = true);
+      } else {
+        (this.isShowTopBar = true), (this.isShowTabbar = false);
+      }
+    }
+  }
 };
 </script>
 
 <style lang="scss" scoped>
-    // 顶部
-    .header{
+// 社区主页大盒子
+.home {
+  width: 100%;
+  height: 100%;
+  // 顶部
+  .header {
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    background-color: white;
+    // 选择社区
+    .location {
+      font-size: 16px;
+      margin-left: 15px;
+      color: #808080;
+    }
+    // 信息盒子
+    .massageBox {
+      color: #808080;
+      font-size: 16px;
+      margin: 17px 20px 0 0;
+    }
+    // 顶部首页隐藏其它页面显示
+    .headerBox {
       width: 100%;
-      height: 40px;
-      line-height: 40px;
-      background-color: white;
-      // 选择社区
-      .location{
-        font-size: 16px;
-        margin-left: 15px;
-        color:#808080;
-        // 遮罩层
-        
-      }
-      // 信息盒子
-      .massageBox{
-        color:#808080;
-        font-size: 16px;
-        margin:12px 20px 0 0;
-
+      position: fixed;
+      left: 0;
+      top: 0;
+      height: 50px;
+      font-size: 16px;
+      .backStyle {
+        width: 60px;
+        height: 30px;
+        .mintui {
+          font-size: 20px;
+        }
       }
     }
-  // test
-  //       .headerBox {
-  //         background-color: red;
-  //       width: 100%;
-  //       position:fixed ;
-  //       left: 0;
-  //       top: 0;
-  //       height: 50px;
-  //       font-size: 16px;
-  //   .backStyle {
-  //     width: 60px;
-  //     height: 30px;
-  //     .mintui {
-  //       font-size: 20px;
-  //     }
-  //   }
-  // }
-
-
-    .mask{
-          position: fixed;
-          top:0;
-          right: 0;
-          bottom: 0;
-          left: 0;
-          background-color: rgba(0,0,0,.3);
-          z-index: 996;
+  }
+  // 遮罩层弹框内容
+  .mask {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 996;
+  }
+    // 弹框内容
+    .maskContent {
+      width: 70%;
+      height: 50%;
+      margin: 60px auto;
+      background: white;
+      .h4Title {
+        background: #999;
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+      }
+      ul {
+        margin-top: 10px;
+        li {
+          margin-bottom: 10px;
         }
-        .show{
-          display: none;
-        
-         
-
-        }
-        
+      }
+    }
+    .hiddenContent{
+      display: none;
+    }
+  // 轮播图
+  .swipeContent {
+    height: 220px;
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  // 九宫格
+  .gridContent {
+    .mui-grid-view {
+      margin-top: 0px;
+    }
+    img {
+      width: 80px;
+      height: 80px;
+    }
+  }
+  // 社区资讯信息
+  .newsContent {
+    height: 100%;
+    margin: 15px 22px;
+    .titleLeft {
+      font-size: 18px;
+      .treeBar {
+        margin-right: 5px;
+        font-weight: 900;
+      }
+    }
+    .allRight {
+      font-size: 14px;
+      color: #c0c0c0;
+    }
+  }
+  // 底部
+  .tabBar {
+    p {
+      margin-top: 2px;
+      font-weight: 600;
+    }
+  }
+  .aaa {
+    background-color: red;
+  }
+}
 </style>

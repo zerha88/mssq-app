@@ -1,6 +1,6 @@
 <template>
 <div>
-    <!-- 社区文章复用 -->
+    <!-- 社区文章列表复用 -->
     <div class="ComtentUtil clearfix" @click='linkToArticleDetailsPage(item.id)' v-for="(item,index) in ComtentUtil" :key="index">
       <div class="content">
         <h4 >{{item.title}}</h4>
@@ -18,7 +18,6 @@ export default {
   props:['ComtentUtil'],
   data(){
       return {
-
       }
   },
   methods: {
@@ -37,7 +36,7 @@ export default {
 //   }
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 // 社区资讯信息
 .ComtentUtil {
     border-bottom:1px solid #989898;padding-bottom:3px;margin-bottom:10px;

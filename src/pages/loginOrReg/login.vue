@@ -39,7 +39,8 @@
 
 <script>
 import axios from 'axios';
-import md5 from 'md5';
+import crypto from 'crypto'
+// import md5 from 'md5';
 import { Toast } from 'mint-ui';
 import qs from 'qs'
 
@@ -58,24 +59,21 @@ export default {
   		},
 	  toLogin:function(){
 		  let myself = this;
+		  let md5 = crypto.Hash('md5')
+		  md5.update(this.password)
 		  axios.get("http://120.77.214.0:10000/wisdomCommunity-interface/login/api/do_login",{
 			  params:{
 				  "username":this.userName,
-				  "password":md5(this.password)
+				  "password":md5.digest('hex')
 			  }
 		  })
 		  .then(function(res){
-			//   console.log(res)
 			  if(res.data.success==true){
+				//   保存用户信息
 				  sessionStorage.setItem("saveData",JSON.stringify(res.data.data));
-				//   console.log(sessionStorage)
-				// console.log(sessionStorage.getItem('saveData'));
-				// console.log(saveData)
 				//   提示
 				Toast({message: '登录成功',iconClass: 'icon icon-success'});
 				  myself.$router.push("/loginInfo")
-
-				//   console.log(res)
 			  }
 			  else{
 				  Toast({
@@ -85,15 +83,10 @@ export default {
 				  myself.$router.push("/login")
 				  myself.userName=""
 				  myself.password=""
-				  
-
 			  }
 		  })
 		  .catch(function(resError){
 			  console.log(resError)
-			//   if(resError.msg==false){
-			// 	  $router.push("/login")
-			//   }
 		  })
 	  }
   },

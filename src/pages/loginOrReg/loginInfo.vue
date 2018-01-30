@@ -24,7 +24,7 @@
                   <img src="../../assets/images/waitCheck.png" alt="">
                   <p>待审核</p>
               </li>
-              <li>
+              <li @click="LInktoServiceDetails">
                   <img src="../../assets/images/ing.png" alt="">
                   <p>进行中</p>
               </li>
@@ -48,19 +48,19 @@
       <!-- 账号管理 -->
       <div class="manageCommon">
           <ul>
-              <li>
+              <li @click="LinkToAccountSetting">
                   <img src="../../assets/images/setting.png" alt="">
                   <p>账号设置</p>
               </li>
-              <li>
+              <li @click="LinkToServiceDetails">
                   <img src="../../assets/images/zhiyuanzhe.png" alt="">
                   <p>自愿者申请</p>
               </li>
-              <li>
+              <li @click="LinkToMemberList">
                   <img src="../../assets/images/member.png" alt="">
                   <p>成员管理</p>
               </li>
-              <li>
+              <li @click="LinkToNeedService">
                   <img src="../../assets/images/question.png" alt="">
                   <p>需求服务</p>
               </li>
@@ -82,19 +82,30 @@ export default {
     };
   },
   created:function(){
-    //   let getInfoData ={};
-     let getInfoData11111=JSON.parse(sessionStorage.getItem('saveData'))[0];
-    //   console.log(getInfoData11111)
-      this.getInfoData = getInfoData11111;
+     let getInfoStoreData=JSON.parse(sessionStorage.getItem('saveData'))[0];
+      this.getInfoData = getInfoStoreData;
     //   console.log(this.getInfoData)
-    //   console.log(getInfoData)
-    //  console.log(JSON.parse(sessionStorage.getItem('saveData')))
   },
   methods:{
-      OutLogin:function(){
+    //   退出登录
+      OutLogin: function(){
          this.$router.push("/login");
+      },
+      LinkToMemberList :function(){
+         this.$router.push("/memberList");
+      },
+      LinkToAccountSetting :function(){
+          this.$router.push("/settingIndex");
+      },
+      LinkToNeedService :function(){
+          this.$router.push("/needServiceIndex");
+      },
+      LinkToServiceDetails:function(){
+          this.$router.push("/volunteerApplyIndex");
+      },
+      LInktoServiceDetails:function(){
+          this.$router.push("/ServiceDetails")
       }
-
   }
 };
 </script>
@@ -160,13 +171,15 @@ export default {
       }
   }
   .buttomLeaveLogin{
-      margin-top: 15px;
-      border-radius: 10px;
+    //   margin-top: 25px;
+      position: fixed;
+      bottom: 50px;
+    //   border-radius: 10px;
       width: 100%;
       height: 50px;
       font-size: 18px;
       color: #ffffff;
-      background-color:#989898;
+      background-color:#999;
   }
 }
 </style>

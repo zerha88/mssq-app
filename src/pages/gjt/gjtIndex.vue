@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="gjtIndex">
       <!-- tab标题 -->
     <mt-navbar v-model="selected">
       <mt-tab-item id="1">党建新闻</mt-tab-item>
@@ -73,6 +73,9 @@ import qs from 'qs';
 </script>
 
 <style lang = "scss">
+.gjtIndex{
+  background-color: white;
+}
 .mint-navbar .mint-tab-item.is-selected{
   border-bottom: 3px solid red;
   .mint-tab-item-label{
