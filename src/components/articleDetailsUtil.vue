@@ -29,6 +29,7 @@ export default {
   background-color: white;
   //   详情内容部分
   .DetailsContent {
+    
     // 时间
     .articleDetailstime {
       text-align: center;
@@ -41,7 +42,7 @@ export default {
       font-weight: bold;
       margin-right: 20px;
       margin-left: 20px;
-      margin: 10px 0 10px 0;
+      padding: 10px 0 10px 0;
     }
   }
 }

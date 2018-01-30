@@ -96,7 +96,7 @@ export default new Router({
   // 文章详情动态页
   {
     path: '/details/:id',
-    name: 'articleDetailsIndex',
+    name: '社区资讯',
     component: articleDetailsIndex,
     props: true
   },

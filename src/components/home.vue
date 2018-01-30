@@ -156,7 +156,7 @@ export default {
         { img: gridImg3, title: "公益吧", toPath: "/publicBenefitIndex" },
         { img: gridImg4, title: "百事通", toPath: "/convenienceSeviceIndex" },
         { img: gridImg5, title: "机构圈", toPath: "/organizationIndex" },
-        { img: gridImg6, title: "观景台", toPath: "/gjtIndex" }
+        { img: gridImg6, title: "观景台", toPath: "/gjtIndex" },
       ]
     };
   },

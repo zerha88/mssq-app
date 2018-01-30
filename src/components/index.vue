@@ -2,8 +2,8 @@
     <!-- 社区主页 -->
   <div class="home">
       <!-- 头部Top -->
-      <div class="header" v-show="isShowTopBar">
-          <!-- 头部首页隐藏其它页显示测试-->
+      <div class="header" v-if="isShowTopBar">
+        <!-- 头部HeaderBar 随path隐藏显示-->
           <mt-header :title="topTitle" class="headerBox" fixed>
               <mt-button  slot="left" icon="back"  @click="goBack" class="backStyle"></mt-button>
               <mt-button icon="more" slot="right"></mt-button>
@@ -14,51 +14,41 @@
             <router-view></router-view>
       </div>
       <!-- 底部TabBar 随Path动态显示隐藏 -->
-      <div class="tabBar" >
-          <mt-tabbar v-show="isShowTabbar" fixed>
-              <mt-tab-item id="" >
-                <div @click="linkToHome">
-                   <span slot="icon" class="mui-icon mui-icon-home"></span>
-                   <p>首页</p>
-                </div>
-              </mt-tab-item>
-          
-            <mt-tab-item id="">
-
-              <div  @click="linkToLogin">
-                 <span slot="icon" class="mui-icon mui-icon-contact"></span>
-                 <p>个人中心</p>
-              </div>
-             </mt-tab-item>
-        </mt-tabbar>
+      <div class="bottomTab"  v-show="isShowTabbar">
+          <ul class="titleStyleUl">
+            <li v-for="(item,index) in bottomTabMsg" 
+              :key="index"
+              @click="changeTab(item.toPath,index)"
+              :class="tabStatus==index?isActive:''">
+              <img :src="item.img"></img> {{item.tabTitle}}
+            </li>
+          </ul>
       </div>
   </div>
 </template>
-
 <script>
+import homeImg from "../assets/images/homeIndex.png";
+import mineImg from "../assets/images/mineIndex.png";
 export default {
   name: "home",
   data() {
     return {
-      // test
+      titleText:"大梅沙海岸",
       isShowTopBar:false,
       isShowTabbar:false,
+      tabStatus: 0,
       topTitle:'',
+      isActive: "isActived",
       // newTitle:"",
       msg: "home",
       isShow: false,
-      liObj:{
-        1:'1111',
-        2:'2222',
-        3:'3333',
-        4:'4444',
-        5:'5555'
-      },
-      titleText:"大梅沙海岸"
-      
+   bottomTabMsg: [
+        { img: homeImg, toPath: "/", tabTitle: "首页" },
+        { img: mineImg, toPath: "/loginInfo", tabTitle: "我的" },
+      ]
     };
   },
-  // test
+// 监视路由变化
     watch:{
     $route: function(newVal,oldVal){
       this.isShowOrHidden(newVal.path)
@@ -71,11 +61,9 @@ export default {
     this.isShowOrHidden(this.$route.path)
   },
   methods:{
-    linkToHome:function(){
-      this.$router.push("/")
-    },
-    linkToLogin:function(){
-      this.$router.push("/loginInfo")
+    changeTab:function(path,sta){
+      this.$router.push(path)
+      this.tabStatus=sta
     },
     changeLocation:function(){
       this.isShow = true
@@ -89,8 +77,7 @@ export default {
     textClick(item){
       this.titleText = item
     },
-    // test
-        // 头部返回按钮(首页隐藏其它页显示)
+// 头部返回按钮(首页隐藏其它页显示)
   goBack: function() {
       this.$router.go(-1);
     },
@@ -111,6 +98,11 @@ export default {
 <style lang="scss" >
 button:enabled:active{
   background-color: transparent;
+}
+// 底部切换文字样式效果
+.isActived{
+  color:red;
+
 }
     // 顶部
     .header{
@@ -137,7 +129,7 @@ button:enabled:active{
     .headerBox {
       background-color: red;
         width: 100%;
-        position:fixed ;
+        // position:fixed ;
         left: 0;
         top: 0;
         height: 50px;
@@ -146,7 +138,6 @@ button:enabled:active{
       width: 60px;
       height: 30px;
       .mintui {
-        
         font-size: 20px;
       }
     }
@@ -167,4 +158,29 @@ button:enabled:active{
           display: none;
         }
         
+  .bottomTab {
+    position: fixed;
+    bottom: 0;
+    // z-index:9999;
+    background:white;
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    .titleStyleUl {
+      display: flex;
+      li {
+        text-align: center;
+        font-weight:900;
+        border: 1px solid rosybrown;
+        border-right: none;
+        border-left: none;
+        flex: 1;
+      }
+    li:first-child {
+      }
+      li:last-child {
+        // border-right: none;
+      }
+    }
+  }
 </style>
