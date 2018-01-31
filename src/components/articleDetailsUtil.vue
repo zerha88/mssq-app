@@ -26,6 +26,7 @@ export default {
 </script>
 <style lang="scss" rel="stylesheet/scss" scoped>
 .articleDetailsUtilContent {
+  width:100%;
   background-color: white;
   //   详情内容部分
   .DetailsContent {

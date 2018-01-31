@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+// import Navigation from 'vue-navigation'
 // 引入组件
 import index from '@/components/index' //主页路由机制
 import home from '@/components/home' //主页

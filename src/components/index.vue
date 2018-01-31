@@ -129,7 +129,7 @@ button:enabled:active{
     .headerBox {
       background-color: red;
         width: 100%;
-        // position:fixed ;
+        position:fixed ;
         left: 0;
         top: 0;
         height: 50px;
