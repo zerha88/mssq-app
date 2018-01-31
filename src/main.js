@@ -16,9 +16,8 @@ import MuiCss from '../node_modules/muiv3/dist/css/mui.css'
 // mint
 import 'mint-ui/lib/style.css'
 
-import Rem from '@/assets/rem/rem.js'
-// import RemJS from '@/assets/rem/rem.js'
-// console.log(RemJS)
+// rem适配=>todo
+// import Rem from '@/assets/rem/rem.js'
 
 // 使用
 Vue.use(Mint);

@@ -5,14 +5,14 @@
       <div class="header" >
         <!-- 选择社区 -->
           <span class="mui-icon mui-icon-location location" >
-            <span :class="mask==true?'aaa':''" @click="changeLocation">{{titleText}}</span>
+            <span @click="changeLocation">{{titleText}}</span>
           </span>
         <!-- 信息盒子 -->
           <span class="mui-icon mui-icon-chat massageBox fr" @click="openMassageBox"></span>
       </div>
       <!-- 遮罩层弹窗内容 -->
-      <div :class="isShowMaskorContent==true?'mask':''" @click="isHide">
-        <div :class="isShowMaskorContent==false?'hiddenContent':''">
+      <div :class="isShowMaskOrContent==true?'mask':''" @click="isHide">
+        <div :class="isShowMaskOrContent==false?'hiddenContent':''">
           <!-- 选项内容 -->
           <div class="maskContent">
               <h4 class="h4Title">请选择所在社区</h4>
@@ -139,7 +139,7 @@ export default {
   data() {
     return {
       titleText:'大梅沙社区',
-      isShowMaskorContent:false,
+      isShowMaskOrContent:false,
       isShowTopBar: false,
       isShowTabbar: true,
       mask: "true",
@@ -170,13 +170,13 @@ export default {
   },
   methods: {
     changeLocation: function() {
-      this.isShowMaskorContent =true;
+      this.isShowMaskOrContent =true;
     },
     chooseItem: function(item){
       this.titleText = item;
     },
     isHide:function(){
-      this.isShowMaskorContent =false;
+      this.isShowMaskOrContent =false;
     },
     openMassageBox: function() {
       alert("打开盒子信息");
@@ -308,9 +308,6 @@ export default {
       margin-top: 2px;
       font-weight: 600;
     }
-  }
-  .aaa {
-    background-color: red;
   }
 }
 </style>

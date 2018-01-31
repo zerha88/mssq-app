@@ -8,8 +8,8 @@
         </div>
         <div class="articleDetailstime">
             {{articleDetails.createDate}}
-       </div>
-        <div class="detalisContent" v-html="articleDetails.content"></div>
+        </div>
+       <div class="detalisContent" v-html="articleDetails.content"></div>
     </div>
   </div>
 </template>
@@ -24,7 +24,7 @@ export default {
   }
 };
 </script>
-<style lang="scss" rel="stylesheet/scss" scoped>
+<style lang="scss" rel="stylesheet/scss" >
 .articleDetailsUtilContent {
   width:100%;
   background-color: white;
@@ -35,6 +35,7 @@ export default {
     .articleDetailstime {
       text-align: center;
     }
+
     // 标题
     .detailsTitle {
       color: #555555;
@@ -44,6 +45,12 @@ export default {
       margin-right: 20px;
       margin-left: 20px;
       padding: 10px 0 10px 0;
+    }
+    .detalisContent{
+      img{
+        width: 100%!important;
+        height: 100%!important;
+      }
     }
   }
 }

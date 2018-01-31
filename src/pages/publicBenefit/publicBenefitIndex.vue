@@ -48,6 +48,7 @@ export default{
 </script>
 <style lang="scss">
 .publicBenefitIndex {
+  background-color: white;
   .imgBox {
     img {
       width: 100%;

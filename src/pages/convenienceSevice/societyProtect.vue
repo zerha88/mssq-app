@@ -9,10 +9,11 @@
 </script>
 <style lang="scss" scoped>
 .societyProtect {
+  background-color: white!important;
   .content {
     height: 100%;
-    margin-left: -45%;
-    width: 160%;
+    margin-left: -55%;
+    width: 156%;
     margin-top: -5%;
   }
 }

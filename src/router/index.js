@@ -52,6 +52,9 @@ export default new Router({
 {
   path: '/',
   component:index,
+  meta: {
+    keepAlive: true // 需要被缓存
+  },
   children:[
 // 重定向
   {

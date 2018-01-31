@@ -10,8 +10,10 @@
           </mt-header>
       </div>
       <!-- 中间路由动态View -->
-      <div class="routerView">
-            <router-view></router-view>
+      <div class="routerView" >
+        <keep-alive>
+           <router-view></router-view>
+        </keep-alive>
       </div>
       <!-- 底部TabBar 随Path动态显示隐藏 -->
       <div class="bottomTab"  v-show="isShowTabbar">
@@ -57,13 +59,13 @@ export default {
   },
   created: function(){
     //  this.newTitle =this.$router.currentRoute.name;
-    //  console.log(this.$router)
     this.isShowOrHidden(this.$route.path)
   },
   methods:{
-    changeTab:function(path,sta){
+    changeTab:function(path,status){
+
       this.$router.push(path)
-      this.tabStatus=sta
+      this.tabStatus=status
     },
     changeLocation:function(){
       this.isShow = true
@@ -102,7 +104,6 @@ button:enabled:active{
 // 底部切换文字样式效果
 .isActived{
   color:red;
-
 }
     // 顶部
     .header{
@@ -161,7 +162,6 @@ button:enabled:active{
   .bottomTab {
     position: fixed;
     bottom: 0;
-    // z-index:9999;
     background:white;
     width: 100%;
     height: 50px;
@@ -175,11 +175,6 @@ button:enabled:active{
         border-right: none;
         border-left: none;
         flex: 1;
-      }
-    li:first-child {
-      }
-      li:last-child {
-        // border-right: none;
       }
     }
   }
