@@ -89,6 +89,7 @@ export default {
   methods:{
     //   退出登录
       OutLogin: function(){
+         sessionStorage.removeItem('saveData')
          this.$router.push("/login");
       },
       LinkToMemberList :function(){

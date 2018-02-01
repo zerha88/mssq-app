@@ -59,14 +59,25 @@ export default {
   },
   created: function(){
     //  this.newTitle =this.$router.currentRoute.name;
+    // console.log(sessionStorage.getItem('saveData'))
     this.isShowOrHidden(this.$route.path)
   },
   methods:{
     changeTab:function(path,status){
+       this.tabStatus=status
+      //  判断切换的路由以及用户是否登陆过
+      if(path=="/loginInfo" && sessionStorage.getItem('saveData')!==null){
+          //  let getInfoStoreData=JSON.parse(sessionStorage.getItem('saveData'))[0];
+          this.$router.push("/loginInfo")
+      }
+         else if(path=="/loginInfo" && sessionStorage.getItem('saveData')===null){
+            this.$router.push("/login")
+          }else{
+            this.$router.push(path)
+          }
+      },
 
-      this.$router.push(path)
-      this.tabStatus=status
-    },
+
     changeLocation:function(){
       this.isShow = true
     },
