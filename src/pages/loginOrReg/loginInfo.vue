@@ -84,7 +84,6 @@ export default {
   created:function(){
      let getInfoStoreData=JSON.parse(sessionStorage.getItem('saveData'))[0];
       this.getInfoData = getInfoStoreData;
-    //   console.log(this.getInfoData)
   },
   methods:{
     //   退出登录

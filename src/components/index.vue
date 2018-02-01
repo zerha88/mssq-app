@@ -59,7 +59,6 @@ export default {
   },
   created: function(){
     //  this.newTitle =this.$router.currentRoute.name;
-    // console.log(sessionStorage.getItem('saveData'))
     this.isShowOrHidden(this.$route.path)
   },
   methods:{
