@@ -43,49 +43,11 @@
               </router-link>
             </li>
         </ul>
-		        <!-- <ul class="mui-table-view mui-grid-view mui-grid-9">
-		            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-                    <router-link to="/fuwubao">
-		                <img src="../assets/images/icon_shequfuwu.png" alt="">
-		                <div class="fuwubao">服务宝</div>
-                    </router-link>
-                </li>
-		            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-                    <router-link to="/linlibang">
-		                <img src="../assets/images/icon_zhiyuanfuwu.png" alt="">
-		                <div class="fuwubao">邻里帮</div>
-                    </router-link>
-                </li>
-		            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-                    <router-link to="/gongyiba">
-		                <img src="../assets/images/icon_gongyifuwu.png" alt="">
-		                <div class="fuwubao">公益吧</div>
-                    </router-link>
-                </li>
-		            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-                    <router-link to="/baishitong">
-		                <img src="../assets/images/icon_bianminfuwu.png" alt="">
-		                <div class="fuwubao">百事通</div>
-                    </router-link>
-                </li>
-		            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-                    <router-link to="/jigouquan">
-		                <img src="../assets/images/icon_shehuizuzhi.png" alt="">
-		                <div class="fuwubao">机构圈</div>
-                    </router-link>
-                </li>
-		            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-                    <router-link to="/gjtIndex">
-		                <img src="../assets/images/icon_shequkuaibao.png" alt="">
-		                <div class="fuwubao">观景台</div>
-                    </router-link>
-                </li>
-		        </ul>  -->
 		</div>
     <!-- 社区资讯信息 -->
-    <div class="newsContent" style="height:260px;">
+    <div class="newsContent">
        <!-- 党建新闻 -->
-        <div class="djxw" >
+        <!-- <div class="djxw" >
           <div class="title" >
             <span class="titleLeft"><i class="treeBar">|</i>党建新闻</span>
             <span class="fr allRight">查看全部</span>
@@ -98,7 +60,8 @@
                 <span class="">7月21日上午，区人大常委会陆卫平副主任到大梅沙社区人大联络站走访调研</span>
               </div>
           </div> 
-        </div>
+        </div> -->
+        <article-util :ComtentUtil="djywData"></article-util>
     </div>
 
       <!-- 底部TabBar -->
@@ -120,6 +83,7 @@
 </template>
 
 <script>
+import articleUtil from "@/components/articleUtil"
 // 轮播图
 import img1 from "../assets/images/banner_2.jpg";
 import img2 from "../assets/images/banner_3.jpg";
@@ -141,6 +105,7 @@ export default {
       titleText:'大梅沙社区',
       isShowMaskOrContent:false,
       isShowTopBar: false,
+      djywData:[],
       isShowTabbar: true,
       mask: "true",
       chooseMsgs: [
@@ -160,6 +125,9 @@ export default {
       ]
     };
   },
+  components:{
+    articleUtil:articleUtil
+  },
   watch: {
     $route: function(newVal, oldVal) {
       this.isShowOrHidden(newVal.path);
@@ -167,10 +135,21 @@ export default {
   },
   created: function() {
     this.isShowOrHidden(this.$route.path);
+    this.getDjywData()
   },
   methods: {
     changeLocation: function() {
       this.isShowMaskOrContent =true;
+    },
+    getDjywData:function(){
+      this.axios.get("http://120.77.214.0:10000/wisdomCommunity-interface/cms/api/article/list",{
+        params:{
+          columnId:"djyw",
+          currentPage:2,
+          pageSize:2,
+          isPage:1
+        }
+      }).then(res=>{this.djywData =res.data.data})
     },
     chooseItem: function(item){
       this.titleText = item;

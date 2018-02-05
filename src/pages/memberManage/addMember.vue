@@ -87,9 +87,6 @@ export default {
           let linKURL ="http://120.77.214.0:10000/"
           this.axios.post("http://120.77.214.0:10000/wisdomCommunity-interface/upload/uploadAttach",base64Data)
           .then(res => {
-              // console.log(res.data.data)
-              _self.result =linKURL+res.data.data
-              // console.log(_self.result)
           })
           .catch(err => {
             // console.log(err)

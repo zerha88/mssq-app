@@ -11,9 +11,7 @@
       </div>
       <!-- 中间路由动态View -->
       <div class="routerView" >
-        <keep-alive>
            <router-view></router-view>
-        </keep-alive>
       </div>
       <!-- 底部TabBar 随Path动态显示隐藏 -->
       <div class="bottomTab"  v-show="isShowTabbar">

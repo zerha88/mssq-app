@@ -122,7 +122,9 @@ export default {
   ul {
     margin-top: 10px;
     li {
+      margin: 10px 0;
       margin-left: 10px;
+      
       .checkboxStyle {
         width: 20px;
         vertical-align: middle;
