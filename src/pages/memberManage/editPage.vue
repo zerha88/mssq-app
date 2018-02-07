@@ -7,7 +7,7 @@
           <div class="uploadOrNameOrTelphone">
               <div class="upload">
                   <!-- 头像 -->
-                  <img :src="editDada.famileImage" alt="" >
+                  <img :src="result" alt="" >
                   <!-- 上传头像按钮 -->
                   <div class="labelStyle">
                     <label for="uploadImg" >上传图片</label>

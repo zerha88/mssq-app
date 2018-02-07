@@ -3,11 +3,12 @@
   <div class="addMember">
       <!-- 增加成员内容 -->
       <div class="addMemberContent">
+        <form v-model="addMemberData">
           <!-- 上传图片/填写名字/电话号码 -->
           <div class="uploadOrNameOrTelphone">
               <div class="upload">
                   <!-- 头像 -->
-                  <img :src="result" alt="" >
+                  <img :src="result" alt="">
                   <!-- 上传头像按钮 -->
                   <div class="labelStyle">
                     <label for="uploadImg" >上传图片</label>
@@ -16,12 +17,13 @@
               </div>
               <div class="nameOrTelphone">        
                   <span for="name" >姓名：</span>
-                  <input type="text" id="name" >
+                  <input type="text" id="name" v-model="addMemberData.famileName">
                   <br>
                   <span for="telphone" >手机号码：</span>
-                  <input type="number" id="telphone" maxlength="11">
+                  <input type="number" id="telphone" maxlength="11" v-model="addMemberData.telephone">
               </div>
           </div>
+        </form>
           <!-- 其它信息 -->
           <div class="other">
             <!-- 与我关系 -->
@@ -37,12 +39,12 @@
             <!-- 身份证号码 -->
             <div class="idNumber">
                 <label >身份证号码：</label>
-                <input type="number" maxlength="18">
+                <input type="number" maxlength="18" v-model="addMemberData.identityID">
             </div>
             <!-- 详细住址 -->
             <div class="address">
                 <label >详细住址：</label>
-                <input type="text">
+                <input type="text" v-model="addMemberData.address">
             </div>
           </div>         
       </div>
@@ -58,14 +60,21 @@
 </template>
 
 <script>
+import { Toast } from "mint-ui";
 // // 导入公共通信中间件
 // import busEvent from '@/bus-event/bus-event.js'
 export default {
   name: "",
   data() {
     return {
-      result: ""
-      
+      userId: "",
+      result: "",
+      addMemberData:{
+        famileName: "",
+        telephone: "",
+        identityID: "",
+        address: ""
+      }
     };
   },
   // created(){
@@ -74,6 +83,12 @@ export default {
   //     console.log(data)
   //   })
   // },
+  mounted(){
+    // 获取用户userId
+      let getInfoStoreUserId=JSON.parse(sessionStorage.getItem('saveData'))[0].username;
+      this.userId = getInfoStoreUserId;
+      // console.log(this.userId)
+  },
   methods: {
     getUploadImg: function(event) {
       // console.log(event)
@@ -87,6 +102,9 @@ export default {
           let linKURL ="http://120.77.214.0:10000/"
           this.axios.post("http://120.77.214.0:10000/wisdomCommunity-interface/upload/uploadAttach",base64Data)
           .then(res => {
+            // console.log(res)
+            _self.result =linKURL+res.data.data
+            
           })
           .catch(err => {
             // console.log(err)
@@ -101,11 +119,19 @@ export default {
     },
     // 确定
     enterClick: function(){
-      this.axios.get("http://120.77.214.0:10000/wisdomCommunity-interface/login/api/updateMember",{
-        params:{
-
-        }
-      })
+      this.addMemberData.userId =this.userId;
+      this.addMemberData.famileImage =this.result;
+      this.axios.get("http://120.77.214.0:10000/wisdomCommunity-interface/login/api/updateMember",{params:this.addMemberData
+}).then(res=>{
+  if(res.success==true){
+    Toast('提交成功');
+  }else{
+    Toast('信息有误，请重新填写！');
+  }
+})
+.catch(err=>{
+  console.log("请求有误！")
+})
     }
   }
 };
