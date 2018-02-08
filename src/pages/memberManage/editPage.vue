@@ -1,8 +1,9 @@
 <template>
-<!-- 增加成员页面 -->
-  <div class="addMember">
-      <!-- 增加成员内容 -->
-      <div class="addMemberContent">
+<!-- 编辑成员页面 -->
+  <div class="edit">
+      <!-- 编辑成员内容 -->
+      <div class="editContent">
+        <form v-model="editDada">
           <!-- 上传图片/填写名字/电话号码 -->
           <div class="uploadOrNameOrTelphone">
               <div class="upload">
@@ -16,10 +17,10 @@
               </div>
               <div class="nameOrTelphone">        
                   <span for="name" >姓名：</span>
-                  <input type="text" id="name" :value="editDada.famileName">
+                  <input type="text" id="name"  v-model="editDada.famileName">
                   <br>
                   <span for="telphone" >手机号码：</span>
-                  <input type="number" id="telphone" maxlength="11" :value="editDada.telephone">
+                  <input type="number" id="telphone" maxlength="11"  v-model="editDada.telephone">
               </div>
           </div>
           <!-- 其它信息 -->
@@ -34,15 +35,15 @@
             <!-- 身份证号码 -->
             <div class="idNumber">
                 <label >身份证号码：</label>
-                <input type="number" maxlength="18" :value="editDada.identityID">
+                <input type="number" maxlength="18"  v-model="editDada.identityID">
             </div>
             <!-- 详细住址 -->
             <div class="address">
                 <label >详细住址：</label>
-                <input type="text" :value="editDada.address">
-                <!-- <span>{{}}</span> -->
+                <input type="text"  v-model="editDada.address">
             </div>
           </div>         
+        </form>
       </div>
       <div  class="bottomTab">
           <div class="regret" @click="regretedClick">
@@ -65,20 +66,25 @@ export default {
     return {
       result: "",
     //   selected:0,
+      famileId: "",
       relationData:["父母","兄弟姐妹","子女","夫妻","其它"],
-      editDada:{}
+      editDada:{
+        relation: "",
+        famileName: "",
+        telephone: "",
+        identityID: "",
+        address: ""
+      }
     };
   },
   created(){
-    // console.log(2222)
     busEvent.$on("sendData",function(res){
     //   let _self =this
       this.editDada = res.data[0]
-    //   console.log(this)
-    // this.selected =res.data[0];
-    //   console.log(this.editDada)
-    // console.log(this.selected)
-    //   console.log(111)
+      // let famileId = res.data[0].famileId
+      
+      this.famileId = res.data[0].famileID
+      console.log(typeof this.famileId)
     }.bind(this))
   },
   methods: {
@@ -113,23 +119,30 @@ export default {
     enterClick: function(){
       this.axios.get("http://120.77.214.0:10000/wisdomCommunity-interface/login/api/updateMember",{
         params:{
-
+        famileId:this.famileId,
+        famileName:this.editDada.famileName,
+        relation:this.editDada.relation,
+        telephone:this.editDada.telephone,
+        identityID:this.editDada.identityID,
+        address:this.editDada.address,
+        famileImage:this.result
         }
       })
       .then(function(res){
+        console.log(res)
           Toast('修改成功！');
           this.$router.push("/memberList")
-      })
+      }.bind(this))
     }
   }
 };
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-.addMember {
-  // 添加成员内容
+.edit {
+  // 编辑成员内容
   margin: 10px;
-  .addMemberContent {
+  .editContent {
     //   上传图片/填写名字/电话号码
     .uploadOrNameOrTelphone {
       height: 150px;

@@ -123,8 +123,9 @@ export default {
       this.addMemberData.famileImage =this.result;
       this.axios.get("http://120.77.214.0:10000/wisdomCommunity-interface/login/api/updateMember",{params:this.addMemberData
 }).then(res=>{
-  if(res.success==true){
+  if(res.data.success==true){
     Toast('提交成功');
+    this.$router.push("/memberList")
   }else{
     Toast('信息有误，请重新填写！');
   }

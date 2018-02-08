@@ -61,20 +61,11 @@ export default {
         )
         .then(function(res) {
           _myself.memberListData = res.data.data;
-          //   console.log(typeof(_myself.memberListData))
         })
         .catch(function(resError) {
           console.log(resError);
         });
     },
-    //   获取成员详情信息
-    // getMemberDetalis: function(){
-    //     this.axios.get("http://120.77.214.0:10000/wisdomCommunity-interface/login/api/getMemberDetail",{
-    //         params:{
-    //             famileId:fdg
-    //         }
-    //     })
-    // },
     //   跳转至添加成员列表
     linkToaddMember: function() {
       this.$router.push("/addMember");
@@ -82,8 +73,6 @@ export default {
     //   编辑信息
     editInfo: function() {
       let membersData = this.memberListData;
-      //   console.log(membersData)
-      //   console.log(this.checkedMembers[0])
       let checkedMembersID = this.checkedMembers[0];
       if (this.checkedMembers.length == 0) {
         Toast("请勾选需要编辑的成员");
@@ -97,11 +86,8 @@ export default {
             }
           }
         )
-        // console.log(2222)
         .then(function(res) {
-        //   console.log(res.data);
          let memberDetalisData =res.data
-        // console.log(11111)
         busEvent.$emit("sendData",memberDetalisData)
         });
         
@@ -110,7 +96,30 @@ export default {
 
       }
     },
-    deleMember: function() {}
+    // 删除成员
+    deleMember: function() {
+       let checkedMembersID = this.checkedMembers.join(",");
+      //  console.log(typeof checkedMembersID)
+       if(this.checkedMembers.length==0){
+         Toast("请勾选需要删除的成员");
+       }else{
+          this.axios.get(
+          "http://120.77.214.0:10000/wisdomCommunity-interface/login/api/updateMember",
+          {
+            params: {
+              famileId: checkedMembersID,
+              famileState: 1
+            }
+          }
+        ).then(res=>{
+          console.log(res.data.success)
+           if(res.data.success==true){
+             this.$router.go(0);
+             Toast("删除成功！");
+           }
+        })
+       }
+    }
   }
 };
 </script>
