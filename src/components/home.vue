@@ -47,21 +47,14 @@
     <!-- 社区资讯信息 -->
     <div class="newsContent">
        <!-- 党建新闻 -->
-        <!-- <div class="djxw" >
+        <div class="djxw" >
           <div class="title" >
             <span class="titleLeft"><i class="treeBar">|</i>党建新闻</span>
             <span class="fr allRight">查看全部</span>
           </div>
-          <div class="content" style="margin-top:20px;">
-              <h4 >区人大常委会陆卫平副主任到大梅沙社区人大联络站走访调研</h4>
-              <p>2018-1-5 19:20:16</p>
-              <div>
-                <div class="fl"><img style="width:80px;height:80px;" src="http://120.77.214.0:10000/uploads/attach/41cfd5dd-7e8e-44dc-b584-45eb78174ed1.png" alt=""></div>
-                <span class="">7月21日上午，区人大常委会陆卫平副主任到大梅沙社区人大联络站走访调研</span>
-              </div>
-          </div> 
-        </div> -->
-        <article-util :ComtentUtil="djywData"></article-util>
+           <article-util :ComtentUtil="djywData"></article-util>
+        </div>
+       
     </div>
 
       <!-- 底部TabBar -->

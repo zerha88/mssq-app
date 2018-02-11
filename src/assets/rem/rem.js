@@ -23,6 +23,6 @@
           return defaultFontSize
         };
 
-        // 720px的设计稿，以 100px=1rem 的比例调整
-        setBaseFontSize(720, 100);
+        // 750px的设计稿，以 100px=1rem 的比例调整
+        setBaseFontSize(750, 100);
       })();

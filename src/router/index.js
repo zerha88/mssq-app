@@ -42,6 +42,9 @@ import serviceDetails from '@/pages/needService/serviceDetails'//服务详情
 // 自愿者申请
 import volunteerApplyIndex from '@/pages/volunteerApply/volunteerApplyIndex'//志愿者申请
 
+// 个人登录主页
+import loginInfoPro from '@/pages/other/loginInfoPro'//个人登录主页
+
 
 
 // 使用路由
@@ -240,6 +243,12 @@ export default new Router({
       path: '/register',
       name: 'register',
       component: register,
+    },
+    // 登录个人中心
+    {
+      path: '/loginInfoPro',
+      name: 'loginInfoPro',
+      component: loginInfoPro,
     },
   ]
 })

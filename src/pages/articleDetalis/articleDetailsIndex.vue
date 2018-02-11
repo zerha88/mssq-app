@@ -13,7 +13,7 @@ export default {
   name: "articleDetailsIndex",
   data() {
     return {
-      articleDetailsData: ""
+      articleDetailsData: "",
     };
   },
   // 组件定义和注册

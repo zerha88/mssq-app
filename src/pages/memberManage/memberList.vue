@@ -99,7 +99,7 @@ export default {
     // 删除成员
     deleMember: function() {
        let checkedMembersID = this.checkedMembers.join(",");
-      //  console.log(typeof checkedMembersID)
+
        if(this.checkedMembers.length==0){
          Toast("请勾选需要删除的成员");
        }else{
@@ -114,7 +114,8 @@ export default {
         ).then(res=>{
           console.log(res.data.success)
            if(res.data.success==true){
-             this.$router.go(0);
+            //  this.$router.go(0);
+             window.location.reload(true)
              Toast("删除成功！");
            }
         })
