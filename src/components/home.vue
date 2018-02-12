@@ -10,7 +10,7 @@
         <!-- 信息盒子 -->
           <span class="mui-icon mui-icon-chat massageBox fr" @click="openMassageBox"></span>
       </div>
-      <!-- 遮罩层弹窗内容 -->
+      <!-- 遮罩层弹窗内容左边 -->
       <div :class="isShowMaskOrContent==true?'mask':''" @click="isHide">
         <div :class="isShowMaskOrContent==false?'hiddenContent':''">
           <!-- 选项内容 -->
@@ -25,6 +25,20 @@
           </div>
         </div>
       </div>
+      <!-- 右边弹框内容 -->
+      <!-- @click="clickDialogHidden" -->
+  <div :class="isShowMaskDialog==true?'maskDialog':''" @click="isHiddenDialog">
+    <div :class="isShowMaskDialog==false?'hiddenContent':''">
+      <div class="rightDialog">
+        <ul>
+          <li><i>&</i>我的消息</li>
+          <li><i>%</i>分享给朋友</li>
+          <li><i>#</i>分享给朋友圈</li>
+          <li><i>*</i>扫一扫</li>
+        </ul>
+      </div>
+    </div>
+  </div>
       <!-- 轮播图 -->
       <div class="swipeContent">
         <mt-swipe :auto="2000">
@@ -54,27 +68,9 @@
           </div>
            <article-util :ComtentUtil="djywData"></article-util>
         </div>
-       
     </div>
-
-      <!-- 底部TabBar -->
-    <mt-tabbar fixed v-show="isShowTabbar">
-      <mt-tab-item >
-        <router-link to="/home">
-          <img src="../assets/images/home.png">
-          <p>首页</p>
-        </router-link>
-      </mt-tab-item>
-      <mt-tab-item>
-        <router-link to="/login">
-          <img src="../assets/images/personal.png">
-          <p>个人中心</p>
-        </router-link>
-      </mt-tab-item>
-    </mt-tabbar>
   </div>
 </template>
-
 <script>
 import articleUtil from "@/components/articleUtil"
 // 轮播图
@@ -97,6 +93,7 @@ export default {
     return {
       titleText:'大梅沙社区',
       isShowMaskOrContent:false,
+      isShowMaskDialog: false,
       isShowTopBar: false,
       djywData:[],
       isShowTabbar: true,
@@ -119,18 +116,15 @@ export default {
     };
   },
   components:{
+    // 文章列表组件
     articleUtil:articleUtil
   },
-  watch: {
-    $route: function(newVal, oldVal) {
-      this.isShowOrHidden(newVal.path);
-    }
-  },
   created: function() {
-    this.isShowOrHidden(this.$route.path);
+    // 获取党建新闻数据
     this.getDjywData()
   },
   methods: {
+    // 选择区域
     changeLocation: function() {
       this.isShowMaskOrContent =true;
     },
@@ -143,32 +137,59 @@ export default {
           isPage:1
         }
       }).then(res=>{this.djywData =res.data.data})
+      .catch(err=>{
+        console.log(err)
+      })
     },
+    // 区域选中项
     chooseItem: function(item){
       this.titleText = item;
     },
+    // 隐藏遮罩层
     isHide:function(){
       this.isShowMaskOrContent =false;
     },
+    // 右边弹出框
     openMassageBox: function() {
-      alert("打开盒子信息");
+      this.isShowMaskDialog =true;
     },
-    // 头部返回按钮(首页隐藏其它页显示)
-    goBack: function() {
-      this.$router.go(-1);
+    // 隐藏弹出框
+    isHiddenDialog:function(){
+      this.isShowMaskDialog=false;
     },
-    isShowOrHidden: function(path) {
-      if (path == "/home1") {
-        (this.isShowTopBar = false), (this.isShowTabbar = true);
-      } else {
-        (this.isShowTopBar = true), (this.isShowTabbar = false);
-      }
-    }
   }
 };
 </script>
 
 <style lang="scss" scoped>
+// 顶部右边弹出框
+.rightDialog{
+  position: absolute;
+  border: 1px solid darkgrey;
+  border-radius: 3px;
+  right: 20px;
+  top: 40px;
+  background-color: white;
+  width: 180px;
+  height: 120px;
+  z-index: 999;
+  ul{
+    li{
+      margin: 8px;
+      i{
+        margin:0 15px;
+      }
+    }
+  }
+}
+.maskDialog{
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 996;
+}
 // 社区主页大盒子
 .home {
   width: 100%;

@@ -10,8 +10,21 @@
               <p>海滨公园</p>
               <p>A+，有你更美好！</p>
             </div>
-            <div class="setting">设置</div>
+            <div class="setting" @click="settingClick">设置</div>
           </div>
+      </div>
+      <!-- 遮罩层 -->
+      <div :class="isShowMaskOrContent==true?'mask':''" @click="clickMaskHidden">
+        <!-- 弹框内容 -->
+      <div :class="isShowMaskOrContent==false?'hiddenContent':''">
+        <div class="maskContent">
+          <ul>
+            <li>修改登录密码</li>
+            <li>修改手机号码</li>
+            <li>退出登录</li>
+          </ul>
+        </div>
+      </div>
       </div>
       <div class="gridNav">
         <ul>
@@ -39,6 +52,7 @@ export default {
   name: "",
   data() {
     return {
+      isShowMaskOrContent:false,
       gridData: [
         { img: gridImg1, title: "我的报名", toPath: "/mySignUp" },
         { img: gridImg2, title: "我的服务", toPath: "/myService" },
@@ -51,12 +65,47 @@ export default {
     };
   },
   methods:{
-
+    settingClick:function(){
+      this.isShowMaskOrContent=true;
+    },
+    clickMaskHidden:function(){
+      this.isShowMaskOrContent=false;
+    }
   }
 };
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
+// 遮罩层
+.mask{
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+  z-index: 997;
+}
+// 遮罩层内容
+.maskContent{
+  position: absolute;
+  right: 40px;
+  top:60px;
+  ul{
+    padding-top:3px;
+    width: 160px;
+    height: 100px;
+    border-radius: 3px;
+    background-color: white;
+    li{
+      margin:8px 8px 0 15px;
+    }
+  }
+}
+// 隐藏
+.hiddenContent{
+  display: none;
+}
 .loginInfo {
   width: 100%;
   height: 100%;
@@ -98,6 +147,7 @@ export default {
         }
       }
       .setting{
+        color: aqua;
         position: fixed;
         top: 30px;
         right: 40px;

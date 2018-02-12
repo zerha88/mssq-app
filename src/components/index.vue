@@ -73,14 +73,6 @@ export default {
             this.$router.push(path)
           }
       },
-
-
-    changeLocation:function(){
-      this.isShow = true
-    },
-    openMassageBox:function(){
-      alert("打开盒子信息")
-    },
     isHide(){
       this.isShow = false
     },
