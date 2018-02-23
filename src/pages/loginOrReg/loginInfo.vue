@@ -5,8 +5,8 @@
       <!-- 用户信息 -->
       <div class="userInfo" >
           <img src="../../assets/images/banner_3.jpg" alt="">
-          <p class="name">{{getInfoData.username}}</p>
-          <p class="location">大梅沙社区</p>
+          <p class="name">{{getInfoData.famileName}}</p>
+          <p class="location">{{getInfoData.communityName}}</p>
           <!-- 2018-01-07 10:27:11 -->
           <p class="lastLogin">最后登录时间：<span>{{getInfoData.lastLoginTime}}</span></p>
       </div>
