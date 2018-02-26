@@ -48,12 +48,12 @@
         </mt-swipe>
       </div>
       <!-- 九宫格 -->
-      <div class="mui-content gridContent">
-        <ul class="mui-table-view mui-grid-view mui-grid-9">
-            <li v-for="(item,index) in gridData"  :key="index" class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+      <div class="gridContent">
+        <ul>
+            <li v-for="(item,index) in gridData" :key="index">
               <router-link :to=item.toPath>
                 <img :src='item.img' alt="" >
-                <div>{{item.title}}</div>
+                <p>{{item.title}}</p>
               </router-link>
             </li>
         </ul>
@@ -81,12 +81,14 @@ import img4 from "../assets/images/img4.png";
 import img5 from "../assets/images/img5.png";
 import img6 from "../assets/images/img6.png";
 // 九宫格
-import gridImg1 from "../assets/images/icon_shequfuwu.png";
-import gridImg2 from "../assets/images/icon_zhiyuanfuwu.png";
-import gridImg3 from "../assets/images/icon_gongyifuwu.png";
-import gridImg4 from "../assets/images/icon_bianminfuwu.png";
-import gridImg5 from "../assets/images/icon_shehuizuzhi.png";
-import gridImg6 from "../assets/images/icon_shequkuaibao.png";
+import gridImg1 from "../assets/images/menu_icon_dj.png";
+import gridImg2 from "../assets/images/menu_icon_fwb.png";
+import gridImg3 from "../assets/images/menu_icon_jgc.png";
+import gridImg4 from "../assets/images/menu_icon_hd.png";
+import gridImg5 from "../assets/images/menu_icon_bst.png";
+import gridImg6 from "../assets/images/menu_icon_llj.png";
+import gridImg7 from "../assets/images/menu_icon_gyb.png";
+import gridImg8 from "../assets/images/menu_icon_zx.png";
 export default {
   name: "home",
   data() {
@@ -106,12 +108,14 @@ export default {
       ],
       swipeData:{img1:img1,img2:img2,img3:img3,img4:img4,img5:img5,img6:img6},
       gridData: [
-        { img: gridImg1, title: "服务宝", toPath: "/serviceHelperIndex" },
-        { img: gridImg2, title: "邻里帮", toPath: "/neighborHelpIndex" },
-        { img: gridImg3, title: "公益吧", toPath: "/publicBenefitIndex" },
-        { img: gridImg4, title: "百事通", toPath: "/convenienceSeviceIndex" },
-        { img: gridImg5, title: "机构圈", toPath: "/organizationIndex" },
-        { img: gridImg6, title: "观景台", toPath: "/gjtIndex" },
+        { img: gridImg1, title: "党建+", toPath: "/serviceHelperIndex" },
+        { img: gridImg2, title: "服务宝", toPath: "/neighborHelpIndex" },
+        { img: gridImg3, title: "机构圈", toPath: "/publicBenefitIndex" },
+        { img: gridImg4, title: "工作站", toPath: "/convenienceSeviceIndex" },
+        { img: gridImg5, title: "百宝盒", toPath: "/organizationIndex" },
+        { img: gridImg6, title: "邻里帮", toPath: "/gjtIndex" },
+        { img: gridImg7, title: "公益吧", toPath: "/gybIndex" },
+        { img: gridImg8, title: "资讯通", toPath: "/zxtIndex" },
       ]
     };
   },
@@ -263,7 +267,7 @@ export default {
     }
   // 轮播图
   .swipeContent {
-    height: 220px;
+    height: 190px;
     img {
       width: 100%;
       height: 100%;
@@ -271,13 +275,22 @@ export default {
   }
   // 九宫格
   .gridContent {
-    .mui-grid-view {
-      margin-top: 0px;
-    }
-    img {
-      width: 80px;
-      height: 80px;
-    }
+      ul{
+        display: flex;
+        flex-wrap:wrap;
+        li{
+          margin: 10px 0;
+          width: 25%;
+          text-align: center;
+          img{
+            width: 40px;
+            height: 40px;
+          }
+          p{
+            font-size: 16px;
+          }
+        }
+      }
   }
   // 社区资讯信息
   .newsContent {

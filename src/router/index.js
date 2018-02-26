@@ -45,6 +45,10 @@ import volunteerApplyIndex from '@/pages/volunteerApply/volunteerApplyIndex'//�
 // 个人登录主页
 import loginInfoPro from '@/pages/other/loginInfoPro'//个人登录主页
 
+// toast
+import navTabs from '@/toast/nav-tabs'//导航切换卡
+import tabTest from '@/toast/tab-test'//测试
+
 
 
 // 使用路由
@@ -52,6 +56,17 @@ Vue.use(Router)
 // 路由匹配
 export default new Router({
   routes: [
+ // toast
+        {
+          path: '/tabTest',
+          name: 'tabTest',
+          component: tabTest,
+        },
+        {
+          path: '/navTabs',
+          name: 'navTabs',
+          component: navTabs,
+        },
 {
   path: '/',
   component:index,
