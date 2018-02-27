@@ -48,6 +48,8 @@ import loginInfoPro from '@/pages/other/loginInfoPro'//个人登录主页
 // toast
 import navTabs from '@/toast/nav-tabs'//导航切换卡
 import tabTest from '@/toast/tab-test'//测试
+import loginPro from '@/pages/other/loginPro'//loginPro
+import findPassword from '@/pages/other/findPassword'//findPassword
 
 
 
@@ -63,9 +65,19 @@ export default new Router({
           component: tabTest,
         },
         {
+          path: '/loginPro',
+          name: 'loginPro',  
+          component: loginPro,
+        },
+        {
           path: '/navTabs',
           name: 'navTabs',
           component: navTabs,
+        },
+        {
+          path: '/findPassword',
+          name: 'findPassword',
+          component: findPassword,
         },
 {
   path: '/',
